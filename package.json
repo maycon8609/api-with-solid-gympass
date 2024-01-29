@@ -9,6 +9,8 @@
     "start:docker": "docker-compose up --build",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
     "test:watch": "vitest"
   },
   "keywords": [],
@@ -25,6 +27,8 @@
     "@rocketseat/eslint-config": "2.1.0",
     "@types/bcryptjs": "2.4.6",
     "@types/node": "20.11.4",
+    "@vitest/coverage-v8": "1.2.2",
+    "@vitest/ui": "1.2.2",
     "eslint": "8.56.0",
     "prisma": "5.8.1",
     "tsup": "8.0.1",
