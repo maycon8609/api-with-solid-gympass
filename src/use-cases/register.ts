@@ -4,13 +4,13 @@ import { User } from '@prisma/client'
 import { PrismaUserRepository } from '@/repositories/prisma/prisma-users-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
-interface RegisterUseCaseRequest {
+interface IRegisterUseCaseRequest {
   name: string
   email: string
   password: string
 }
 
-interface RegisterUseCaseResponse {
+interface IRegisterUseCaseResponse {
   user: User
 }
 
@@ -21,7 +21,7 @@ export class RegisterUseCase {
     name,
     email,
     password,
-  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  }: IRegisterUseCaseRequest): Promise<IRegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
