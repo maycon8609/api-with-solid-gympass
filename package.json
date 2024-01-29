@@ -8,10 +8,10 @@
     "start": "node build/server.js",
     "start:docker": "docker-compose up --build",
     "start:dev": "tsx watch src/server.ts",
-    "test": "vitest run",
+    "test": "vitest run --reporter verbose",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "test:watch": "vitest"
+    "test:watch": "vitest --reporter verbose"
   },
   "keywords": [],
   "author": "",
