@@ -4,7 +4,7 @@ import { Prisma, User } from '@prisma/client'
 import { UsersRepository } from '../users-repository'
 
 export class InMemoryUsersRepository implements UsersRepository {
-  public users: User[] = []
+  public items: User[] = []
 
   async create(data: Prisma.UserCreateInput) {
     const user = {
@@ -15,19 +15,19 @@ export class InMemoryUsersRepository implements UsersRepository {
       created_at: new Date(),
     }
 
-    this.users.push(user)
+    this.items.push(user)
 
     return user
   }
 
   async findByEmail(email: string) {
-    const user = this.users.find((user) => user.email === email)
+    const user = this.items.find((user) => user.email === email)
 
     return user || null
   }
 
   async findById(id: string) {
-    const user = this.users.find((user) => user.id === id)
+    const user = this.items.find((user) => user.id === id)
 
     return user || null
   }
