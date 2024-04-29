@@ -9,15 +9,15 @@ import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-
 import { MaxNumberOfCheckInsError } from './errors/max-number-of-checkIns-error'
 import { MaxDistanceError } from './errors/max-distance-error'
 
-let usersRepository: InMemoryCheckInsRepository
+let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
-let checkInUseCase: CheckInUseCase
+let sut: CheckInUseCase
 
 describe('Check-in Use Case', () => {
   beforeEach(async () => {
-    usersRepository = new InMemoryCheckInsRepository()
+    checkInsRepository = new InMemoryCheckInsRepository()
     gymsRepository = new InMemoryGymsRepository()
-    checkInUseCase = new CheckInUseCase(usersRepository, gymsRepository)
+    sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
     await gymsRepository.create({
       id: 'gym-01',
@@ -36,7 +36,7 @@ describe('Check-in Use Case', () => {
   })
 
   it('should be able to check in', async () => {
-    const { checkIn } = await checkInUseCase.execute({
+    const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: 0,
@@ -56,9 +56,9 @@ describe('Check-in Use Case', () => {
       userLongitude: 0,
     }
 
-    await checkInUseCase.execute(checkInData)
+    await sut.execute(checkInData)
 
-    await expect(checkInUseCase.execute(checkInData)).rejects.toBeInstanceOf(
+    await expect(sut.execute(checkInData)).rejects.toBeInstanceOf(
       MaxNumberOfCheckInsError,
     )
   })
@@ -73,11 +73,11 @@ describe('Check-in Use Case', () => {
       userLongitude: 0,
     }
 
-    await checkInUseCase.execute(checkInData)
+    await sut.execute(checkInData)
 
     vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0))
 
-    const { checkIn } = await checkInUseCase.execute(checkInData)
+    const { checkIn } = await sut.execute(checkInData)
 
     expect(checkIn.id).toEqual(expect.any(String))
   })
@@ -99,7 +99,7 @@ describe('Check-in Use Case', () => {
       userLongitude: -42.8335233,
     }
 
-    await expect(checkInUseCase.execute(checkInData)).rejects.toBeInstanceOf(
+    await expect(sut.execute(checkInData)).rejects.toBeInstanceOf(
       MaxDistanceError,
     )
   })

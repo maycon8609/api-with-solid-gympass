@@ -2,20 +2,22 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { compare } from 'bcryptjs'
 
 import { RegisterUseCase } from './register'
-import { UserAlreadyExistsError } from './errors/user-already-exists-error'
+
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 
+import { UserAlreadyExistsError } from './errors/user-already-exists-error'
+
 let usersRepository: InMemoryUsersRepository
-let registerUseCase: RegisterUseCase
+let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
-    registerUseCase = new RegisterUseCase(usersRepository)
+    sut = new RegisterUseCase(usersRepository)
   })
 
   it('should be able to register', async () => {
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
@@ -25,7 +27,7 @@ describe('Register Use Case', () => {
   })
 
   it('should hash user password upon registration', async () => {
-    const { user } = await registerUseCase.execute({
+    const { user } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
@@ -46,10 +48,10 @@ describe('Register Use Case', () => {
       password: '123456',
     }
 
-    await registerUseCase.execute(userData)
+    await sut.execute(userData)
 
-    await expect(() =>
-      registerUseCase.execute(userData),
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError)
+    await expect(() => sut.execute(userData)).rejects.toBeInstanceOf(
+      UserAlreadyExistsError,
+    )
   })
 })

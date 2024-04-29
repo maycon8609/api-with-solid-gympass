@@ -6,12 +6,12 @@ import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user
 import { InvalideCredentialsError } from './errors/invalide-credentials-error'
 
 let usersRepository: InMemoryUsersRepository
-let authenticateUseCase: AuthenticateUseCase
+let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
-    authenticateUseCase = new AuthenticateUseCase(usersRepository)
+    sut = new AuthenticateUseCase(usersRepository)
   })
 
   it('should be able to authenticate', async () => {
@@ -21,7 +21,7 @@ describe('Authenticate Use Case', () => {
       password_hash: await hash('123456', 6),
     })
 
-    const { user } = await authenticateUseCase.execute({
+    const { user } = await sut.execute({
       email: 'johndoe@email.com',
       password: '123456',
     })
@@ -35,9 +35,9 @@ describe('Authenticate Use Case', () => {
       password: '123456',
     }
 
-    await expect(() =>
-      authenticateUseCase.execute(userData),
-    ).rejects.toBeInstanceOf(InvalideCredentialsError)
+    await expect(() => sut.execute(userData)).rejects.toBeInstanceOf(
+      InvalideCredentialsError,
+    )
   })
 
   it('should not be able to authenticate with wrong password', async () => {
@@ -52,8 +52,8 @@ describe('Authenticate Use Case', () => {
       password: '12345',
     }
 
-    await expect(() =>
-      authenticateUseCase.execute(userData),
-    ).rejects.toBeInstanceOf(InvalideCredentialsError)
+    await expect(() => sut.execute(userData)).rejects.toBeInstanceOf(
+      InvalideCredentialsError,
+    )
   })
 })
