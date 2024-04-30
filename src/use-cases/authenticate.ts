@@ -4,12 +4,12 @@ import { User } from '@prisma/client'
 import { UsersRepository } from '@/repositories/users-repository'
 import { InvalideCredentialsError } from './errors/invalide-credentials-error'
 
-interface IAuthenticateUseCaseRequest {
+interface AuthenticateUseCaseRequest {
   email: string
   password: string
 }
 
-interface IAuthenticateUseCaseResponse {
+interface AuthenticateUseCaseResponse {
   user: User
 }
 
@@ -19,7 +19,7 @@ export class AuthenticateUseCase {
   async execute({
     email,
     password,
-  }: IAuthenticateUseCaseRequest): Promise<IAuthenticateUseCaseResponse> {
+  }: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {

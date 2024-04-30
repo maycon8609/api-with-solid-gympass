@@ -9,14 +9,14 @@ import { MaxDistanceError } from './errors/max-distance-error'
 import { MaxNumberOfCheckInsError } from './errors/max-number-of-checkIns-error'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface ICheckInUseCaseRequest {
+interface CheckInUseCaseRequest {
   userId: string
   gymId: string
   userLatitude: number
   userLongitude: number
 }
 
-interface ICheckInUseCaseResponse {
+interface CheckInUseCaseResponse {
   checkIn: CheckIn
 }
 
@@ -31,7 +31,7 @@ export class CheckInUseCase {
     gymId,
     userLatitude,
     userLongitude,
-  }: ICheckInUseCaseRequest): Promise<ICheckInUseCaseResponse> {
+  }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
     const gym = await this.gymsRepository.findById(gymId)
 
     if (!gym) {
