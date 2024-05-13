@@ -58,7 +58,7 @@ describe('Check-in Use Case', () => {
 
     await sut.execute(checkInData)
 
-    await expect(sut.execute(checkInData)).rejects.toBeInstanceOf(
+    await expect(() => sut.execute(checkInData)).rejects.toBeInstanceOf(
       MaxNumberOfCheckInsError,
     )
   })
@@ -99,7 +99,7 @@ describe('Check-in Use Case', () => {
       userLongitude: -42.8335233,
     }
 
-    await expect(sut.execute(checkInData)).rejects.toBeInstanceOf(
+    await expect(() => sut.execute(checkInData)).rejects.toBeInstanceOf(
       MaxDistanceError,
     )
   })
