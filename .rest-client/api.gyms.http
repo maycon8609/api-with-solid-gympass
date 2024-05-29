@@ -1,6 +1,6 @@
 # Private routes
 ### Search a gym
-GET http://localhost:3333//gyms/search?page=1&query=gym_title HTTP/1.1
+GET http://localhost:3333/gyms/search?page=1&query=gym_title HTTP/1.1
 
 ### Get nearby gyms
 GET http://localhost:3333/gyms/nearby?latitude=gym_latitude&longitude=gym_longitude HTTP/1.1
