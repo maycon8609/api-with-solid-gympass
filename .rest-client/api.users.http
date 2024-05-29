@@ -1,6 +1,5 @@
-# User routes
 # Public routes
-### Create User
+### Create
 POST http://localhost:3333/users HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
@@ -11,7 +10,7 @@ Content-Type: application/json
 	"password": "123456"
 }
 
-### Authenticate User
+### Authenticate
 POST http://localhost:3333/sessions HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
@@ -22,8 +21,6 @@ Content-Type: application/json
 }
 
 # Private routes
-### Get User profile
+### Get profile
 GET http://localhost:3333/me HTTP/1.1
-Host: localhost:3333
-Content-Type: application/json
 Authorization: Bearer your.jwt.token
