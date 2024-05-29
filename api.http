@@ -1,5 +1,5 @@
+# User routes
 # Public routes
-
 ### Create User
 POST http://localhost:3333/users HTTP/1.1
 Host: localhost:3333
@@ -11,7 +11,7 @@ Content-Type: application/json
 	"password": "123456"
 }
 
-### Authenticate
+### Authenticate User
 POST http://localhost:3333/sessions HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
@@ -22,8 +22,7 @@ Content-Type: application/json
 }
 
 # Private routes
-
-### me
+### Get User profile
 GET http://localhost:3333/me HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
