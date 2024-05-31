@@ -1,19 +1,22 @@
 # Private routes
 ### Search a gym
-GET http://localhost:3333/gyms/search?page=1&query=gym_title HTTP/1.1
+GET http://localhost:3333/gyms/search?page=1&q=create-mock-gym HTTP/1.1
+Authorization: Bearer your.jwt.token
 
 ### Get nearby gyms
-GET http://localhost:3333/gyms/nearby?latitude=gym_latitude&longitude=gym_longitude HTTP/1.1
+GET http://localhost:3333/gyms/nearby?latitude=-5.060131&longitude=-42.8335233 HTTP/1.1
+Authorization: Bearer your.jwt.token
 
 ### Create a gym
 POST http://localhost:3333/gyms HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
+Authorization: Bearer your.jwt.token
 
 {
-  "title": "Gym title",
+  "title": "create-mock-gym-01",
   "description": "Gym description",
-  "phone": "Gym phone",
-  "latitude": "Gym latitude",
-  "longitude": "gym longitude"
+  "phone": "11999999999",
+  "latitude": -5.060131,
+  "longitude": -42.8335233
 }
