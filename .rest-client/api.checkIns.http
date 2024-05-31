@@ -1,15 +1,17 @@
 # Private routes
 ### Get check-ins history
 GET http://localhost:3333/check-ins/history?page=1 HTTP/1.1
+Authorization: Bearer your.jwt.token
 
 ### Get check-ins metrics
 GET http://localhost:3333/check-ins/metrics HTTP/1.1
-# Authorization: Bearer your.jwt.token
+Authorization: Bearer your.jwt.token
 
 ### Create a check-in
 POST http://localhost:3333/gyms/:gymId/check-ins HTTP/1.1
 Host: localhost:3333
 Content-Type: application/json
+Authorization: Bearer your.jwt.token
 
 {
   "latitude": "Gym latitude",
@@ -18,3 +20,4 @@ Content-Type: application/json
 
 ### Validate a check-in
 PATCH http://localhost:3333/check-ins/:checkInId/validate HTTP/1.1
+Authorization: Bearer your.jwt.token
